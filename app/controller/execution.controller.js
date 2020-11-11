@@ -26,3 +26,16 @@ exports.getTCExecutionNote = (req, res) => {
         res.send(data)
     })
 }
+
+exports.getTCStepExecutionNote = (req, res) => {
+    execution.getTCStepExecutionNote((err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while retrieving step execution note"
+            })
+            return
+        }
+
+        res.send(data)
+    })
+}

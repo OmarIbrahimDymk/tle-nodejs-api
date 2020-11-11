@@ -1,6 +1,7 @@
 module.exports = app => {
     const executions = require('../controller/execution.controller.js')
 
-    app.get('/execution', executions.findAll)
-    app.get('/allExecution', executions.getTCExecutionNote)
+    app.get('/api/execution', executions.findAll)
+    app.get('/api/executionNotes', executions.getTCExecutionNote)
+    app.get('/api/stepExecutionNotes', executions.getTCStepExecutionNote)
 }
