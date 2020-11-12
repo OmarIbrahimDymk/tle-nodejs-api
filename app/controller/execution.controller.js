@@ -39,3 +39,19 @@ exports.getTCStepExecutionNote = (req, res) => {
         res.send(data)
     })
 }
+
+exports.getGhostString = (req, res) => {
+    let params = {}
+    params.step = req.query.step;
+    params.tc = req.query.tc
+    execution.getGhostString(params, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while retrieving step execution note"
+            })
+            return
+        }
+
+        res.send(data)
+    })
+}

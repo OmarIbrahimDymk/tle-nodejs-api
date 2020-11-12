@@ -78,7 +78,6 @@ class Executions {
                 return
             }
 
-            console.log("executions", res)
             result(null, res)
         })
     }
@@ -91,7 +90,6 @@ class Executions {
                 return
             }
 
-            console.log("executions", res)
             result(null, res)
         })
     }
@@ -104,7 +102,36 @@ class Executions {
                 return
             }
 
-            console.log("executions", res)
+            result(null, res)
+        })
+    }
+
+    getGhostString(params, result) {
+        let ghostString = `
+        select
+            tcv.id,
+            tcv.tc_external_id,
+            tc.id as 'tc step',
+            steps.step_number,
+            steps.actions as 'action',
+            steps.expected_results as 'expected result'
+        from
+            tcversions as tcv
+            inner join nodes_hierarchy as tc on tc.parent_id = tcv.id
+            inner join tcsteps as steps on steps.id = tc.id
+        where
+            tcv.tc_external_id = ${params.tc}
+            and steps.step_number = ${params.step}
+        limit
+            1
+        `
+
+        sql.query(ghostString, (err, res) => {
+            if (err) {
+                console.error(err)
+                result(null, err)
+                return
+            }
             result(null, res)
         })
     }
