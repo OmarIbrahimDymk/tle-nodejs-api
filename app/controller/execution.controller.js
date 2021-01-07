@@ -16,7 +16,8 @@ exports.findAll = (req, res) => {
 };
 
 exports.getTCExecutionNote = (req, res) => {
-    execution.getTCExecutionNote((err, data) => {
+  let params = req.query.test_plan_id;
+  execution.getTCExecutionNote(params, (err, data) => {
     if (err) {
       res.status(500).send({
         message:

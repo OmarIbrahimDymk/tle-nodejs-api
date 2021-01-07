@@ -1,6 +1,7 @@
 const sql = require("./db");
 
-const tcExecutionNote = `
+const tcExecutionNote = (testPlanId) => {
+  return `
 SELECT
   users.first AS 'tester',
   executions.notes,
@@ -20,6 +21,8 @@ FROM
 WHERE
   executions.notes IS NOT NULL
   AND executions.notes <> ''
+  AND executions.testplan_id in (${testPlanId ? testPlanId : ""});
+`;
 };
 
 const tcStepExecutionNote = `
@@ -73,8 +76,8 @@ class Executions {
     });
   }
 
-    getTCExecutionNote(result) {
-        sql.query(tcExecutionNote, (err, res) => {
+  getTCExecutionNote(params, result) {
+    sql.query(tcExecutionNote(params), (err, res) => {
       if (err) {
         console.error(err);
         result(null, err);
