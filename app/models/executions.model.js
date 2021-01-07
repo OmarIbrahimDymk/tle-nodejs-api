@@ -25,7 +25,8 @@ WHERE
 `;
 };
 
-const tcStepExecutionNote = `
+const tcStepExecutionNote = (testPlanId) => {
+  return `
 SELECT 
     users.first AS 'tester',
     execstep.notes AS 'execution note',
@@ -58,10 +59,9 @@ FROM
 WHERE
     execstep.notes IS NOT NULL
         AND execstep.notes <> ' '
-        AND (executions.testplan_id = 22141
-        OR executions.testplan_id = 22140
-        OR executions.testplan_id = 22139);
+        AND executions.testplan_id in (${testPlanId ? testPlanId : ""});
 `;
+};
 
 class Executions {
   getAll(result) {
@@ -88,8 +88,8 @@ class Executions {
     });
   }
 
-  getTCStepExecutionNote(result) {
-    sql.query(tcStepExecutionNote, (err, res) => {
+  getTCStepExecutionNote(params, result) {
+    sql.query(tcStepExecutionNote(params), (err, res) => {
       if (err) {
         console.error(err);
         result(null, err);

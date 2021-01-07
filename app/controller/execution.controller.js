@@ -31,7 +31,8 @@ exports.getTCExecutionNote = (req, res) => {
 };
 
 exports.getTCStepExecutionNote = (req, res) => {
-  execution.getTCStepExecutionNote((err, data) => {
+  let params = req.query.test_plan_id;
+  execution.getTCStepExecutionNote(params, (err, data) => {
     if (err) {
       res.status(500).send({
         message:
