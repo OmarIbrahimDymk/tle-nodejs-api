@@ -1,6 +1,6 @@
 module.exports = {
-    HOST: 'localhost',
-    USER: 'bn_testlink',
-    PASSWORD: '9dba0096bc',
-    DB: 'bitnami_testlink'
-}
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "Password1",
+  DB: "bitnami_testlink",
+};
